@@ -43,6 +43,7 @@
 		//For iOS 
 		Open project in Xcode, Go to General tab and change Bundle Identifier
 		```
+		![bundle-id](https://image.ibb.co/kSBQnS/Bundle_Id_IOS.png)
 2.  ## :clipboard: Documentation :clipboard:
 	To get this project running with all dependencies, follow steps given below :
 
@@ -114,7 +115,13 @@
 
 		2.  **iOS**
 
-		Add new iOS app in your Firebase project and follow instructions.<br/>  Download and open the *GoogleService-Info.plist* file.
+		Add new iOS app in your Firebase project.<br/>  
+		
+		You will get bundle identifier from Xcode / General tab. Register and skip other steps.
+		![bundle-id](https://image.ibb.co/kSBQnS/Bundle_Id_IOS.png)
+
+
+		Once done registering app, download and open the *GoogleService-Info.plist* file.
 
 		Open Xcode and switch to Info tab. You need to give _url types_ which we will get from *GoogleService-Info.plist* file. 
 
