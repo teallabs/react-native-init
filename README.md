@@ -1,8 +1,5 @@
 # React Native Init
-:fire: :tada: A React-Native starter kit with Google Signin + Onesignal + Sentry + Code Push + React-Navigation + Redux :tada: :fire:
-
-  
-
+:tada: :fire: A React-Native starter kit with React-Navigation + Code Push + Onesignal + Sentry + Google Signin :tada: :fire:
 ## Includes
 *  [React](https://github.com/facebook/react) & [React Native](https://github.com/facebook/react-native)
 *  [React Navigation](https://reactnavigation.org/)
@@ -24,9 +21,28 @@
 1.  ## :arrow_down: Installation
 	Fire command prompt and run following commands :
 	```
-	$ git clone https://github.com/Teal-labs-developer/react-starter-init.git
+	$ git clone https://github.com/teallabs/react-native-init
 	$ cd react-starter-init && npm install
 	```
+2.  ## Project Name & Bundle Id change
+
+	We recommend you renaming your *project-name* & *bundle-id*, as this would be essential for your whole project configuration. Following steps will help you rename your project :
+
+	* Install [react-native-rename](https://github.com/junedomingo/react-native-rename)
+		```
+		npm install react-native-rename -g
+		```
+	* For renaming app :
+		```
+		react-native-rename <newName>
+		```
+	* For changing bundle id :
+		```
+		// For Android
+		react-native-rename <newName> -b <bundleIdentifier>
+		//For iOS 
+		Open project in Xcode, Go to General tab and change Bundle Identifier
+		```
 2.  ## :clipboard: Documentation :clipboard:
 	To get this project running with all dependencies, follow steps given below :
 
@@ -59,69 +75,75 @@
 		MYAPP_RELEASE_KEY_PASSWORD= /* Enter password here*/
 		```
 
-		Configure Firebase project for both android and iOS app individually. You will get _Bundle Identifier_ from _build.gradle_
+		Configure Firebase project for both android and iOS app individually.
+		First we will start with setting up firebase for android app.
+
+
+		1.  **Android**
+		You will be needing  _Bundle Identifier_ from _build.gradle_ in next step.
 		
 		```
 		ProjectName
 		|_ android
 		|_ _ app
 		|_ _ _ build.gradle
-		|_ _ _ gradle.properties
 		```
-		![build.gradle](https://image.ibb.co/mQtBbn/carbon_2.png)
+		![build.gradle](https://image.ibb.co/hk8Nz7/Bundle_Id_Android.png)
+		
+		Enter bundle id from build.gradle to add firebase to android app. Register App and skip rest of the steps.
+		![firebase android](https://image.ibb.co/cdYY6n/Android_Fire.png)
 
-		Follow steps according to platform :
+		You need to generate SHA-1 and add the generated fingerprint to your firebase config for android app.
+		```
+		Run following commands in project-name > android > app
 
-		1. **Android**
-		You need to generate SHA1 and add the generated fingerprint to your firebase config for android app.
-			```
-			// For Debug
-			keytool -list -v -keystore debug.keystore -alias androiddebugkey -storepass android -keypass android
-			// For Release
-			keytool -list -v -keystore [keystore path] -alias my-key-alias -storepass [storepass] -keypass [keypass]
-			```
+		// For Debug
+		keytool -list -v -keystore debug.keystore -alias androiddebugkey -storepass android -keypass android
+		// For Release
+		keytool -list -v -keystore my-release-key.keystore -alias my-key-alias -storepass [storepass] -keypass [keypass]
+		```
 
-			Go to Firebase > Project Settings ![enter SHA1](https://image.ibb.co/hY3t6n/Screen_Shot_2018_04_18_at_1_10_11_PM.png)
+
+
+		
+		Go to Firebase > Project Settings ![enter SHA](https://image.ibb.co/hY3t6n/Screen_Shot_2018_04_18_at_1_10_11_PM.png)
 
 			
 
-			After adding both SHA fingerprint of Debug and Release download _google-services.json_ file and replace it with your *android/app/google-services.json file.*
+		After adding both SHA-1 fingerprint of Debug and Release download _google-services.json_ file and replace it with your *android/app/google-services.json file.*
 
 		2.  **iOS**
 
-			Add new iOS app in your Firebase project and follow instructions. Download the *GoogleService-Info.plist*.
+		Add new iOS app in your Firebase project and follow instructions.<br/>  Download and open the *GoogleService-Info.plist* file.
 
-			Open Xcode and switch to Info tab. You need to give _url types_ which we will get from *.plist* file _reverse client id_ field.
+		Open Xcode and switch to Info tab. You need to give _url types_ which we will get from *GoogleService-Info.plist* file. 
 
-			![info tab](https://preview.ibb.co/iVtDp7/Screen_Shot_2018_04_18_at_1_34_39_PM.png)
+			
+		Get Bundle Id and Reverse Client Id from *GoogleService-Info.plist* file. Enter respective fields in Xcode.
 
-			Get Bundle Id and Reverse Client Id from .plist file.
+		![bundleid](https://image.ibb.co/i2dm97/Bundle_IDReverser.png)
 
-			![bundleid](https://preview.ibb.co/bGfUwn/Screen_Shot_2018_04_18_at_1_42_25_PM.png)
-
-			Navigate to *App.js* file and change *iosClientId * in *hasPlayServices*
-
-		
-		
-
-			![hasplayServices](https://image.ibb.co/ckqb97/Screen_Shot_2018_04_18_at_1_46_29_PM.png)
+		Navigate to *App.js* file and change *iosClientId* in *hasPlayServices*<br/>
 
 		
 
-			For more configuration in Google Signin, follow instructions from [React-Native-Google-Signin](https://github.com/devfd/react-native-google-signin) .
+		![hasplayServices](https://image.ibb.co/e2BChS/ClientID.png)
+
+		
+
+		For more configuration in Google Signin, follow instructions from [React-Native-Google-Signin](https://github.com/devfd/react-native-google-signin) .
 	2.  ## OneSignal
 		[OneSignal](https://onesignal.com/) provides a simple interface to push notifications and email.
 		* Create an account [here](https://onesignal.com/)
-		* Add a new app and configure individually for both platforms
+		* Add a new app
+
+		First we will configure for android app,
 		1. **Android**
-		Open your [firebase project](https://console.firebase.google.com) and switch to Cloud Messaging tab and copy required fields for configuring android app
-			* Google Server API Key: ```/* insert Server key */```
-			* Google Project Number: ```/* insert Sender Id here */```
-			![cloud messaging](https://image.ibb.co/dsKHhS/firebase1.png)
+		Open your [firebase project](https://console.firebase.google.com) and switch to Cloud Messaging tab and copy Google Server API Key, Google Project Number for configuring android app.
+			![cloud messaging](https://image.ibb.co/i3HPwn/One_Signal_Android.png)
 
-			You need to replace * ADD_ONE_SIGNAL_APP_ID, ADD_FIREBASE_SENDER_ID*. You will get *ADD_ONE_SIGNAL_APP_ID* from App settings of OneSignal Project.
 
-			And *ADD_FIREBASE_SENDER_ID* will be Sender Id from Firebase Project as given in picture above.
+			Now switch to code editor and make changes as suggested below.
 
 			```
 			// Navigate here
@@ -132,23 +154,30 @@
 			|_ _ _ build.gradle
 			```
 
-			![onesignal app id](https://image.ibb.co/no8M97/Screen_Shot_2018_04_18_at_2_36_35_PM.png)
+			![onesignal app id](https://image.ibb.co/bFQG97/One_Singal_Code_Android.png)
 
 			2. **iOS**
 
-			For iOS, you will be prompted to give .p12 file. Read from [here](https://support.magplus.com/hc/en-us/articles/203808748-iOS-Creating-a-Distribution-Certificate-and-p12-File) how to get .p12 file
+				For iOS, you will be prompted to give .p12 file. Read from [here].(https://support.magplus.com/hc/en-us/articles/203808748-iOS-Creating-a-Distribution-Certificate-and-p12-File) how to get .p12 file
+				When you are done with configuring iOS project 
+			* Now open *AppDelegate.m* in code editor and change *oneSignalAppId* with the one you get on creating a new app on Onesignal platform.
+				```
+				ProjectName
+				|_ ios
+				|_ _ ProjectName
+				|_ _ _ AppDelegate.m
+				```
 
-			* Now open *AppDelegate.m* in *project-name/ios/project-name* folder and change
-
-				*oneSignalAppId* with the one you get on creating a new app on Onesignal platform.
+				
 			
-				![oneSignalAppId](https://image.ibb.co/hYziNS/Screen_Shot_2018_04_18_at_2_50_13_PM.png)
+				![oneSignalAppId](https://image.ibb.co/hjDYNS/IOSOne_Signal.png)
 	3.  ## Sentry
 		[Sentry](https://sentry.io/) provides open source error tracking that shows you every crash in your stack as it happens, with the details needed to prioritize, identify, reproduce, and fix each issue.
 
 		* Create your account [here](https://sentry.io/signup) / Login [here](https://sentry.io/auth/login/)
 		* Add a new project
-		* Once you are done creating project go to *sentry.properties* file in both android and iOS folder
+		* Once you are done creating project open *sentry.properties* file from both android and iOS folder.
+		* You have to change Organization name, Project name and auth token.
 			```
 			// Navigate here
 
@@ -161,8 +190,6 @@
 			|_ _ _ sentry.properties
 			```
 
-		Note : Your *sentry.properties* file should look like this
-
 		
 
 		![onesignal](https://image.ibb.co/n1qUwn/Screen_Shot_2018_04_18_at_2_57_37_PM.png)
@@ -171,11 +198,11 @@
 
 		Now open *index.js* and change *ADD_SENTRY_CLIENT_KEY* from DSN 
 
-		![](https://image.ibb.co/fFrmbn/Screen_Shot_2018_04_18_at_3_02_40_PM.png)
+		![sentry DSN](https://image.ibb.co/cRym97/Sentry_DSN.png)
 
 	4.  ## Code Push
 
-		CodePush is a cloud service that enables React Native developers to deploy mobile app updates instantly to their user's devices. Following steps will help in configuring CodePush for project.
+		[CodePush](https://github.com/Microsoft/react-native-code-push) is a cloud service that enables React Native developers to deploy mobile app updates instantly to their user's devices. Following steps will help in configuring CodePush for project.
 		1. Install CodePush CLI
 			``` 
 			npm install -g code-push-cli
@@ -188,9 +215,6 @@
 			> code-push login
 			```
 		3. Register your app
-			``` 
-			> code-push app add <appName> <os> <platform>
-			```
 			If your app targets both iOS and Android, we highly recommend creating separate apps with CodePush. One for each platform.
 
 			```
@@ -200,18 +224,59 @@
 			// For iOS
 			> code-push app add <App-Name-Ios> ios react-native
 			```
-		4. Run following command, individually for both platforms
-			```
-			> code-push deployment ls <appName> --displayKeys
-			```
-			Note : Change CODEPUSH_KEYs with keys we get from above command.
-			![codepush-xcode](https://image.ibb.co/nfi7XS/Screen_Shot_2018_04_18_at_4_12_39_PM.png)
+			**For Android**
 
+			```
+			> code-push deployment ls <App-Name-Android> --displayKeys
+			```
+			Copy both Debug and Release key in *build.gradle* in 
+			```
+			ProjectName
+			|_android
+			|_ _ app
+			|_ _ _ build.gradle
+			```
+			![codepush android](https://image.ibb.co/g83Ewn/Android_Code_Push.png)
+
+			**For iOS**
+			```
+			> code-push deployment ls <App-Name-Ios> --displayKeys
+			```
+
+			![codepush-ios](https://preview.ibb.co/fH1EU7/Code_Push_Ios_1.png)
+			Note : Change CODEPUSH_KEYs with keys we get from above command.
 			
 
-# Start 
-  
+# Start project
+You are now all set to start your project !	
+```
+// For iOS
+> react-native run-ios
 
+// For Android
+> react-native run-android
+```
+
+# Build your app
+When your app is ready to ship, you need to individially build _.apk_ and _.ipa_ file for android and iOS respectively.
+
+For **Android**,
+
+```
+cd android && ./gradlew assembleRelease
+```
+The final apk would be generated in 
+```
+ProjectName
+|_android
+|_ _ app
+|_ _ _ build
+|_ _ _ _ outputs
+|_ _ _ _ _ apk
+|_ _ _ _ _ _ app-release.apk 
+```
+For **iOS**,
+It's a long process to build *.ipa* file for App Store. We will be adding a detailed procedure for this in [wiki](https://github.com/teallabs/react-native-init/wiki) shortly. Meanwhile, you can follow this awesome [blog](https://medium.com/react-native-development/deploying-a-react-native-app-for-ios-pt-1-a79dfd15acb8).
 ## :poop: Troubleshooting :poop:
 
 If you have any problem, search for the issues in this repository. If you don't find anything, you can raise an issue [here](https://github.com/Teal-labs-developer/react-starter-init/issues).
@@ -224,3 +289,4 @@ If you have any problem, search for the issues in this repository. If you don't 
 
 *  [React-Native-Google-Signin](https://github.com/devfd/react-native-google-signin)
 *  [CodePush](http://microsoft.github.io/code-push/docs/cli.html)
+*  [Checklist for deploying app](https://medium.com/the-react-native-log/checklist-to-deploy-react-native-to-production-47157f8f85ed)
