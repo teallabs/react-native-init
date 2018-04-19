@@ -1,5 +1,5 @@
 # React Native Init
-:tada: :fire: A React-Native starter kit with React-Navigation + Code Push + Onesignal + Sentry + Google Signin :tada: :fire:
+:tada::fire: A React-Native starter kit with React-Navigation + Code Push + Onesignal + Sentry + Google Signin :tada::fire:
 ## Includes
 *  [React](https://github.com/facebook/react) & [React Native](https://github.com/facebook/react-native)
 *  [React Navigation](https://reactnavigation.org/)
@@ -247,7 +247,7 @@
 			Note : Change CODEPUSH_KEYs with keys we get from above command.
 			
 
-# Start project
+# :clapper: Start project 
 You are now all set to start your project !	
 ```
 // For iOS
@@ -257,7 +257,7 @@ You are now all set to start your project !
 > react-native run-android
 ```
 
-# Build your app
+# :office: Build your app :office:
 When your app is ready to ship, you need to individially build _.apk_ and _.ipa_ file for android and iOS respectively.
 
 For **Android**,
