@@ -29,7 +29,7 @@
     Fire command prompt and run following commands :
     ```
     $ git clone https://github.com/teallabs/react-native-init
-    $ cd react-starter-init && npm install
+    $ cd react-native-init && npm install
     ```
 2.  ## Project Name & Bundle Id change
 
@@ -199,6 +199,10 @@
 
 
     	![onesignal](https://image.ibb.co/n1qUwn/Screen_Shot_2018_04_18_at_2_57_37_PM.png)
+
+    	In project settings, you can see your project name written in lower case. Use it for above configuration.
+
+    	You can get your organization name from organization settings which is written in lower case.
 
     	Migrate [here](https://sentry.io/api) to get _auth.token_ :point_up:
 
